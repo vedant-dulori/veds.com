@@ -1,19 +1,19 @@
+"use client"
+
 import type React from "react"
 import "./globals.css"
 import { ThemeProvider } from "@/components/theme-provider"
-import NavigationWrapper from "@/components/navigation-wrapper"
+import NavBar from "@/components/nav-bar"
+import { usePathname } from "next/navigation"
 
-export const metadata = {
-  title: "Personal Portfolio",
-  description: "A Netflix-inspired personal portfolio",
-    generator: 'v0.dev'
-}
-
-export default function RootLayout({
+export default function ClientLayout({
   children,
 }: Readonly<{
   children: React.ReactNode
 }>) {
+  const pathname = usePathname()
+  const isRootPath = pathname === "/"
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -21,7 +21,8 @@ export default function RootLayout({
       </head>
       <body className="bg-[#141414] text-white min-h-screen font-netflix-sans">
         <ThemeProvider attribute="class" defaultTheme="dark" enableSystem disableTransitionOnChange>
-          <NavigationWrapper>{children}</NavigationWrapper>
+          {!isRootPath && <NavBar />}
+          {children}
         </ThemeProvider>
       </body>
     </html>

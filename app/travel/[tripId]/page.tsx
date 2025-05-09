@@ -72,13 +72,9 @@ export default function TripDetail({ params }: { params: { tripId: string } }) {
 
           <div className="space-y-2 scroll-mt-24">
             {trip.days.map((day, index) => (
-              <DayCard
-                key={day.id}
-                day={day}
-                index={index}
-                isFeatured={index === 0}
-                onClick={() => setSelectedDay(day)}
-              />
+              <section key={day.id} id={`moment-${index + 1}`} className="scroll-mt-24">
+                <DayCard day={day} index={index} isFeatured={index === 0} onClick={() => setSelectedDay(day)} />
+              </section>
             ))}
           </div>
         </motion.div>

@@ -112,8 +112,17 @@ export interface PhotoItem {
   caption?: string
 }
 
+// New MomentTarget type
+export type MomentTarget =
+  | { kind: "trip"; tripId: string; anchor?: string } // /travel/[tripId]#[anchor]
+  | { kind: "project"; projectId: string } // /work/[projectId]
+  | { kind: "yearRecap"; year: number; anchor?: string } // /recaps/[year]#[anchor]
+  | { kind: "moment"; year: number; slug: string } // /moments/[year]/[slug]
+
+// Updated Moment interface
 export interface Moment extends BaseItem {
-  link?: string
+  rank: number // 1-10
+  target: MomentTarget // NEW
 }
 
 // Picks types

@@ -9,6 +9,7 @@ import type {
   Pick,
   AboutData,
   Media,
+  Moment,
 } from "./types"
 
 // Sample data for the application
@@ -30,6 +31,90 @@ function generateMediaItems(dayId: string, count = 5): Media[] {
 
   return mediaItems
 }
+
+// Top moments data
+export const TOP_MOMENTS_2024: Moment[] = [
+  {
+    id: "fuji-summit",
+    rank: 1,
+    title: "Summit of Mt. Fuji",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Reaching the summit of Mt. Fuji at sunrise after an overnight climb",
+    target: { kind: "trip", tripId: "japan-2023", anchor: "moment-1" },
+  },
+  {
+    id: "product-launch",
+    rank: 2,
+    title: "Product Launch",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Leading the successful launch of our flagship product",
+    target: { kind: "project", projectId: "project-1" },
+  },
+  {
+    id: "marathon-finish",
+    rank: 3,
+    title: "Marathon Finish",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Completing my first marathon in under 4 hours",
+    target: { kind: "moment", year: 2024, slug: "marathon-finish" },
+  },
+  {
+    id: "team-award",
+    rank: 4,
+    title: "Team Award",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Our team receiving recognition for innovation",
+    target: { kind: "yearRecap", year: 2023, anchor: "team-award" },
+  },
+  {
+    id: "kyoto-cherry-blossoms",
+    rank: 5,
+    title: "Kyoto Cherry Blossoms",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Experiencing the magical cherry blossom season in Kyoto",
+    target: { kind: "trip", tripId: "japan-2023", anchor: "moment-2" },
+  },
+  {
+    id: "promotion",
+    rank: 6,
+    title: "Promotion",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Being promoted to Lead Developer after two years",
+    target: { kind: "yearRecap", year: 2023, anchor: "promotion" },
+  },
+  {
+    id: "public-speaking",
+    rank: 7,
+    title: "Public Speaking",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Delivering my first conference talk to an audience of industry peers",
+    target: { kind: "moment", year: 2024, slug: "public-speaking" },
+  },
+  {
+    id: "learning-to-surf",
+    rank: 8,
+    title: "Learning to Surf",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Finally standing up on a surfboard after multiple attempts",
+    target: { kind: "trip", tripId: "iceland-2023", anchor: "moment-3" },
+  },
+  {
+    id: "open-source-contribution",
+    rank: 9,
+    title: "Open Source Contribution",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Having my first major pull request merged into a popular open source project",
+    target: { kind: "project", projectId: "project-2" },
+  },
+  {
+    id: "family-reunion",
+    rank: 10,
+    title: "Family Reunion",
+    image: "/placeholder.svg?height=450&width=800",
+    description: "Gathering with extended family for the first time in several years",
+    target: { kind: "moment", year: 2024, slug: "family-reunion" },
+  },
+]
 
 export function getHomeData(): HomeData {
   return {
@@ -108,26 +193,7 @@ export function getHomeData(): HomeData {
         description: "Navigating challenges and finding opportunities",
       },
     ],
-    topMoments: [
-      {
-        id: "moment-1",
-        title: "Summit of Mt. Fuji",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Reaching the summit of Mt. Fuji at sunrise",
-      },
-      {
-        id: "moment-2",
-        title: "Product Launch",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Leading the successful launch of our flagship product",
-      },
-      {
-        id: "moment-3",
-        title: "Marathon Finish",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Completing my first marathon in under 4 hours",
-      },
-    ],
+    topMoments: TOP_MOMENTS_2024,
     companies: [
       {
         id: "company-1",
@@ -212,6 +278,15 @@ export function getHomeData(): HomeData {
   }
 }
 
+// Add a function to get a moment by year and slug
+export function getMoment(year: string, slug: string): Moment | undefined {
+  return TOP_MOMENTS_2024.find(
+    (moment) =>
+      moment.target.kind === "moment" && moment.target.year === Number.parseInt(year) && moment.target.slug === slug,
+  )
+}
+
+// Rest of the file remains the same...
 export function getTravelData(): TravelData {
   return {
     trips: [
@@ -520,68 +595,7 @@ export function getRecapByYear(year: string): YearRecap | null {
       { image: "/placeholder.svg?height=400&width=400", caption: "Mountain Hike" },
       { image: "/placeholder.svg?height=400&width=400", caption: "Conference Presentation" },
     ],
-    topMoments: [
-      {
-        id: "moment-1",
-        title: "Summit of Mt. Fuji",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Reaching the summit of Mt. Fuji at sunrise after an overnight climb",
-      },
-      {
-        id: "moment-2",
-        title: "Product Launch",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Leading the successful launch of our flagship product to industry acclaim",
-      },
-      {
-        id: "moment-3",
-        title: "Marathon Finish",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Completing my first marathon in under 4 hours after months of training",
-      },
-      {
-        id: "moment-4",
-        title: "Team Award",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Our team receiving recognition for innovation at the annual industry awards",
-      },
-      {
-        id: "moment-5",
-        title: "Kyoto Cherry Blossoms",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Experiencing the magical cherry blossom season in Kyoto",
-      },
-      {
-        id: "moment-6",
-        title: "Promotion",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Being promoted to Lead Developer after two years of dedicated work",
-      },
-      {
-        id: "moment-7",
-        title: "Public Speaking",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Delivering my first conference talk to an audience of industry peers",
-      },
-      {
-        id: "moment-8",
-        title: "Learning to Surf",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Finally standing up on a surfboard after multiple attempts",
-      },
-      {
-        id: "moment-9",
-        title: "Open Source Contribution",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Having my first major pull request merged into a popular open source project",
-      },
-      {
-        id: "moment-10",
-        title: "Family Reunion",
-        image: "/placeholder.svg?height=450&width=800",
-        description: "Gathering with extended family for the first time in several years",
-      },
-    ],
+    topMoments: TOP_MOMENTS_2024.slice(0, 5), // Just use the first 5 moments
   }
 }
 

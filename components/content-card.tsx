@@ -4,6 +4,7 @@ import { useState } from "react"
 import Image from "next/image"
 import Link from "next/link"
 import { cn } from "@/lib/utils"
+import { momentHref } from "@/lib/routeHelpers"
 
 interface ContentCardProps {
   item: any
@@ -15,6 +16,12 @@ export default function ContentCard({ item, type, index }: ContentCardProps) {
   const [isHovered, setIsHovered] = useState(false)
 
   const getLink = () => {
+    // For moments, use the momentHref helper
+    if (type === "moment" && "target" in item) {
+      return momentHref(item.target)
+    }
+
+    // For other types, use the existing logic
     switch (type) {
       case "trip":
         return `/travel/${item.id}`
@@ -28,8 +35,6 @@ export default function ContentCard({ item, type, index }: ContentCardProps) {
         return `/picks/${item.id}`
       case "company":
         return `/work?company=${item.id}`
-      case "moment":
-        return item.link || "#"
       default:
         return "#"
     }
@@ -60,7 +65,15 @@ export default function ContentCard({ item, type, index }: ContentCardProps) {
           getAspectRatio(),
         )}
       >
-        {index !== undefined && (
+        {/* For moments, show the rank overlay */}
+        {type === "moment" && "rank" in item && (
+          <div className="absolute top-3 left-3 z-10">
+            <span className="text-6xl font-black text-white/50 select-none">{item.rank}</span>
+          </div>
+        )}
+
+        {/* For other types with index, show the index overlay */}
+        {type !== "moment" && index !== undefined && (
           <div className="absolute top-0 left-0 z-10 w-1/4 h-full">
             <div className="absolute inset-0 flex items-center justify-center">
               <span className="text-6xl font-bold text-white opacity-70">{index}</span>
