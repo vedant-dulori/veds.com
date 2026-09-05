@@ -1,22 +1,14 @@
-"use client"
-
-import { useEffect, useState } from "react"
+import { notFound } from "next/navigation"
 import Image from "next/image"
 import { getPickById } from "@/lib/data"
-import type { Pick } from "@/lib/types"
 import { Star } from "lucide-react"
 
-export default function PickDetail({ params }: { params: { pickId: string } }) {
-  const [pick, setPick] = useState<Pick | null>(null)
-
-  useEffect(() => {
-    // Fetch pick data
-    const pickData = getPickById(params.pickId)
-    setPick(pickData)
-  }, [params.pickId])
+export default async function PickDetail({ params }: { params: Promise<{ pickId: string }> }) {
+  const { pickId } = await params
+  const pick = getPickById(pickId)
 
   if (!pick) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
+    notFound()
   }
 
   return (

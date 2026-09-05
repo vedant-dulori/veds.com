@@ -56,7 +56,7 @@ export default function NavBar() {
                 href={link.path}
                 className={cn(
                   "text-base font-medium transition-colors hover:text-white",
-                  pathname === link.path ? "text-white" : "text-gray-400",
+                  pathname === link.path ? "text-white" : "text-gray-300",
                 )}
               >
                 {link.name}
@@ -81,7 +81,7 @@ export default function NavBar() {
                 href={link.path}
                 className={cn(
                   "text-lg font-medium py-2 transition-colors hover:text-white",
-                  pathname === link.path ? "text-white" : "text-gray-400",
+                  pathname === link.path ? "text-white" : "text-gray-300",
                 )}
               >
                 {link.name}

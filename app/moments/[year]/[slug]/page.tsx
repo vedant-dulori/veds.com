@@ -1,26 +1,11 @@
-"use client"
-
-import { useEffect, useState } from "react"
 import { notFound } from "next/navigation"
 import { getMoment } from "@/lib/data"
 import Image from "next/image"
-import { motion } from "framer-motion"
+import { MomentHeroCaption, MomentArticle } from "@/components/moment-hero"
 
-export default function MomentPage({ params }: { params: { year: string; slug: string } }) {
-  const [moment, setMoment] = useState<any>(null)
-  const [loading, setLoading] = useState(true)
-
-  useEffect(() => {
-    const momentData = getMoment(params.year, params.slug)
-    if (momentData) {
-      setMoment(momentData)
-    }
-    setLoading(false)
-  }, [params.year, params.slug])
-
-  if (loading) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
-  }
+export default async function MomentPage({ params }: { params: Promise<{ year: string; slug: string }> }) {
+  const { year, slug } = await params
+  const moment = getMoment(year, slug)
 
   if (!moment) {
     notFound()
@@ -45,34 +30,22 @@ export default function MomentPage({ params }: { params: { year: string; slug: s
         </div>
 
         <div className="absolute bottom-0 left-0 p-6 md:p-10 w-full z-10">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            animate={{ y: 0, opacity: 1 }}
-            transition={{ delay: 0.2, duration: 0.5 }}
-          >
-            <h1 className="text-3xl md:text-5xl font-bold mb-2">{moment.title}</h1>
-            <p className="text-xl text-gray-300">{moment.description}</p>
-          </motion.div>
+          <MomentHeroCaption moment={moment} />
         </div>
       </div>
 
       {/* Content */}
       <div className="max-w-3xl mx-auto px-4 py-8">
-        <motion.article
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.4, duration: 0.5 }}
-          className="prose prose-invert mx-auto"
-        >
+        <MomentArticle>
           <p className="text-lg">
             This is a standalone moment page for {moment.title}. In a real application, this would contain a detailed
             story about this specific moment, including additional images, videos, and narrative content.
           </p>
           <p>
-            The moment occurred in {params.year} and was ranked #{moment.rank} in the top moments of the year. This page
+            The moment occurred in {year} and was ranked #{moment.rank} in the top moments of the year. This page
             provides a dedicated space to explore this memory in depth.
           </p>
-        </motion.article>
+        </MomentArticle>
       </div>
     </main>
   )

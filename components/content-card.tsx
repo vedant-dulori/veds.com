@@ -93,7 +93,9 @@ export default function ContentCard({ item, type, index }: ContentCardProps) {
 
         <div className="absolute bottom-0 left-0 p-3 w-full">
           {item.category && <div className="text-xs font-medium text-red-600 mb-1">{item.category}</div>}
-          <h3 className="text-base font-bold line-clamp-1">{item.title}</h3>
+          <h3 className={cn("text-base font-bold", type === "company" ? "line-clamp-2" : "line-clamp-1")}>
+            {item.title}
+          </h3>
           {item.subtitle && <p className="text-sm text-gray-300 line-clamp-1">{item.subtitle}</p>}
         </div>
 

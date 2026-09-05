@@ -1,22 +1,14 @@
-"use client"
-
-import { useEffect, useState } from "react"
+import { notFound } from "next/navigation"
 import Image from "next/image"
 import { getRecapByYear } from "@/lib/data"
-import type { YearRecap } from "@/lib/types"
 import ContentRow from "@/components/content-row"
 
-export default function YearDetail({ params }: { params: { year: string } }) {
-  const [recap, setRecap] = useState<YearRecap | null>(null)
-
-  useEffect(() => {
-    // Fetch recap data
-    const recapData = getRecapByYear(params.year)
-    setRecap(recapData)
-  }, [params.year])
+export default async function YearDetail({ params }: { params: Promise<{ year: string }> }) {
+  const { year } = await params
+  const recap = getRecapByYear(year)
 
   if (!recap) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
+    notFound()
   }
 
   return (

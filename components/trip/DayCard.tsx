@@ -10,7 +10,7 @@ interface DayCardProps {
     tripId: string
     title: string
     image: string
-    description: string
+    description?: string
     mediaCount?: {
       photos: number
       videos: number

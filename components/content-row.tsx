@@ -82,7 +82,7 @@ export default function ContentRow({ title, items, type, showPlayAll = false, nu
               key={index}
               className="flex-none snap-start"
               style={{
-                width: type === "company" ? "150px" : isMobile ? "85%" : numbered ? "300px" : "250px",
+                width: type === "company" ? "220px" : isMobile ? "85%" : numbered ? "300px" : "250px",
               }}
             >
               <ContentCard item={item} type={type} index={numbered ? index + 1 : undefined} />

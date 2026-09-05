@@ -1,23 +1,15 @@
-"use client"
-
-import { useEffect, useState } from "react"
+import { notFound } from "next/navigation"
 import Image from "next/image"
 import { getProjectById } from "@/lib/data"
-import type { Project } from "@/lib/types"
 import { ExternalLink } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-export default function ProjectDetail({ params }: { params: { projectId: string } }) {
-  const [project, setProject] = useState<Project | null>(null)
-
-  useEffect(() => {
-    // Fetch project data
-    const projectData = getProjectById(params.projectId)
-    setProject(projectData)
-  }, [params.projectId])
+export default async function ProjectDetail({ params }: { params: Promise<{ projectId: string }> }) {
+  const { projectId } = await params
+  const project = getProjectById(projectId)
 
   if (!project) {
-    return <div className="min-h-screen flex items-center justify-center">Loading...</div>
+    notFound()
   }
 
   return (
